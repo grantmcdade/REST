@@ -21,7 +21,7 @@ namespace API.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("AquaReports.Data.Models.ReportTemplate", b =>
+            modelBuilder.Entity("API.Data.Models.ReportTemplate", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,7 @@ namespace API.Data.Migrations
                     );
                 });
 
-            modelBuilder.Entity("AquaReports.Data.Models.ReportTemplateReportTemplateTag", b =>
+            modelBuilder.Entity("API.Data.Models.ReportTemplateReportTemplateTag", b =>
                 {
                     b.Property<int>("ReportTemplateId");
 
@@ -72,7 +72,7 @@ namespace API.Data.Migrations
                     );
                 });
 
-            modelBuilder.Entity("AquaReports.Data.Models.ReportTemplateTag", b =>
+            modelBuilder.Entity("API.Data.Models.ReportTemplateTag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -393,14 +393,14 @@ namespace API.Data.Migrations
                     b.ToTable("OpenIddictTokens");
                 });
 
-            modelBuilder.Entity("AquaReports.Data.Models.ReportTemplateReportTemplateTag", b =>
+            modelBuilder.Entity("API.Data.Models.ReportTemplateReportTemplateTag", b =>
                 {
-                    b.HasOne("AquaReports.Data.Models.ReportTemplate", "ReportTemplate")
+                    b.HasOne("API.Data.Models.ReportTemplate", "ReportTemplate")
                         .WithMany("Tags")
                         .HasForeignKey("ReportTemplateId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("AquaReports.Data.Models.ReportTemplateTag", "ReportTemplateTag")
+                    b.HasOne("API.Data.Models.ReportTemplateTag", "ReportTemplateTag")
                         .WithMany("Reports")
                         .HasForeignKey("ReportTemplateTagId")
                         .OnDelete(DeleteBehavior.Cascade);

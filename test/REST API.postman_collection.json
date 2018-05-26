@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "143a568c-95a6-4b01-a327-5162cc448a50",
+		"name": "REST API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get JWT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fa3bc430-ee98-4487-a4dd-233359988751",
+						"type": "text/javascript",
+						"exec": [
+							"var token = JSON.parse(responseBody)",
+							"postman.setEnvironmentVariable(\"access_token\", token.access_token);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text",
+							"description": ""
+						},
+						{
+							"key": "username",
+							"value": "admin@admin.com",
+							"type": "text",
+							"description": ""
+						},
+						{
+							"key": "password",
+							"value": "Nothing123$",
+							"type": "text",
+							"description": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "{{server}}/connect/token",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Report Templates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{server}}/api/reporttemplates",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"reporttemplates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Report",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"name\": \"Test Execution Result By Test Scenario\",\n        \"description\": \"The test execution result by test scenario\",\n        \"tags\": null,\n        \"creationDate\": \"2018-05-15T00:00:00\",\n        \"lastModifiedDate\": \"2018-05-15T00:00:00\",\n        \"thumbnailImage\": \"/Sample-data/TestExecutionResultByTestScenario/thumbnail.png\",\n        \"fullSizeImage\": \"/Sample-data/TestExecutionResultByTestScenario/image.png\",\n        \"pdfFile\": \"/Sample-data/TestExecutionResultByTestScenario/TestExecutionResultByTestScenario.pdf\",\n        \"zipFile\": \"/Sample-data/TestExecutionResultByTestScenario/TestExecutionResultByTestScenario.zip\"\n    }"
+				},
+				"url": {
+					"raw": "{{server}}/api/reporttemplates",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"reporttemplates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch Report Template",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{server}}/api/reporttemplates/2",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"reporttemplates",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Report",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{server}}/api/reporttemplates/4",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"reporttemplates",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Report Template",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Test Execution Result By Test Scenario 2\",\n    \"description\": \"The test execution result by test scenario\",\n    \"tags\": null,\n    \"creationDate\": \"2018-05-15T00:00:00\",\n    \"lastModifiedDate\": \"2018-05-15T00:00:00\",\n    \"thumbnailImage\": \"/Sample-data/TestExecutionResultByTestScenario/thumbnail.png\",\n    \"fullSizeImage\": \"/Sample-data/TestExecutionResultByTestScenario/image.png\",\n    \"pdfFile\": \"/Sample-data/TestExecutionResultByTestScenario/TestExecutionResultByTestScenario.pdf\",\n    \"zipFile\": \"/Sample-data/TestExecutionResultByTestScenario/TestExecutionResultByTestScenario.zip\",\n    \"id\": 2\n}"
+				},
+				"url": {
+					"raw": "{{server}}/api/reporttemplates/2",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"reporttemplates",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tset JWT",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{server}}/api/test",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"test"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
