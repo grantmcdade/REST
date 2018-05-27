@@ -11,5 +11,5 @@ It makes use of the following NuGet libraries.
 + [Swashbuckle](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) - for documenting and exploring the API
 
 ## Notes
-+ This projrct was created using Microsoft Visual Studio Community 2017 15.7.2
++ This project was created using Microsoft Visual Studio Community 2017 15.7.2
 + The test folder contains a [Post Man](https://www.getpostman.com/) collection export to test the API with.

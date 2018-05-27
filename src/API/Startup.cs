@@ -15,17 +15,21 @@ using Microsoft.Extensions.DependencyInjection;
 using AspNet.Security.OAuth.Validation;
 using Swashbuckle.AspNetCore.Swagger;
 using AutoMapper;
+using API.Core;
+using Microsoft.Extensions.Logging;
 
 namespace API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -38,8 +42,15 @@ namespace API
             });
 
             services.AddDbContext<ApplicationDbContext>(options => {
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection"));
+                if (Environment.IsEnvironment(Constants.Testing))
+                {
+                    options.UseInMemoryDatabase(Constants.Testing);
+                }
+                else
+                {
+                    options.UseSqlServer(
+                        Configuration.GetConnectionString("DefaultConnection"));
+                }
                 options.UseOpenIddict();
                 options.EnableSensitiveDataLogging(true);
             });
@@ -90,6 +101,14 @@ namespace API
                 config.CreateMap<Data.Models.ReportTemplate, Models.ReportTemplateDto>();
             });
             services.AddSingleton(mapperConfig.CreateMapper());
+        }
+
+        public void ConfigureTesting(
+            IApplicationBuilder app,
+            IHostingEnvironment env)
+        {
+            this.Configure(app, env);
+            SeedData.PopulateTestData(app.ApplicationServices.GetService<ApplicationDbContext>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
