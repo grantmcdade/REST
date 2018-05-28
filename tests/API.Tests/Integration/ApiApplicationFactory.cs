@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace API.Tests
+namespace API.Tests.Itegration
 {
     public class ApiApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
     {

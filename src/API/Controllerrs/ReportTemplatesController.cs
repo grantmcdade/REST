@@ -9,6 +9,7 @@ using API.Data;
 using API.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
+using API.Models;
 
 namespace API.Controllerrs
 {
@@ -27,31 +28,36 @@ namespace API.Controllerrs
 
         // GET: api/ReportTemplates
         [HttpGet]
-        public IEnumerable<API.Models.ReportTemplateDto> GetReportTemplates()
+        public async Task<ActionResult<IEnumerable<ReportTemplateDto>>> GetReportTemplates()
         {
-            return _context.ReportTemplates
+            var model = await _context.ReportTemplates
                 .Include(rt => rt.Tags)
                 .ThenInclude(rtt => rtt.ReportTemplateTag)
-                .Select(rt => mapper.Map<API.Models.ReportTemplateDto>(rt));
+                .ToListAsync();
+
+            return Json(model.Select(rt => mapper.Map<ReportTemplateDto>(rt)));
         }
 
         // GET: api/ReportTemplates/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<API.Models.ReportTemplateDto>> GetReportTemplate([FromRoute] int id)
+        public async Task<ActionResult<ReportTemplateDto>> GetReportTemplate([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var reportTemplate = await _context.ReportTemplates.FindAsync(id);
+            var reportTemplate = await _context.ReportTemplates
+                .Include(rt => rt.Tags)
+                .ThenInclude(rtt => rtt.ReportTemplateTag)
+                .SingleOrDefaultAsync(rt => rt.Id == id);
 
             if (reportTemplate == null)
             {
                 return NotFound();
             }
 
-            return Ok(mapper.Map<API.Models.ReportTemplateDto>(reportTemplate));
+            return Ok(mapper.Map<ReportTemplateDto>(reportTemplate));
         }
 
         // PUT: api/ReportTemplates/5
@@ -93,7 +99,7 @@ namespace API.Controllerrs
         // POST: api/ReportTemplates
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<API.Models.ReportTemplateDto>> PostReportTemplate([FromBody] ReportTemplate reportTemplate)
+        public async Task<ActionResult<ReportTemplateDto>> PostReportTemplate([FromBody] ReportTemplate reportTemplate)
         {
             if (!ModelState.IsValid)
             {
@@ -103,13 +109,13 @@ namespace API.Controllerrs
             _context.ReportTemplates.Add(reportTemplate);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetReportTemplate", new { id = reportTemplate.Id }, mapper.Map<API.Models.ReportTemplateDto>(reportTemplate));
+            return CreatedAtAction("GetReportTemplate", new { id = reportTemplate.Id }, mapper.Map<ReportTemplateDto>(reportTemplate));
         }
 
         // DELETE: api/ReportTemplates/5
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<ActionResult<API.Models.ReportTemplateDto>> DeleteReportTemplate([FromRoute] int id)
+        public async Task<ActionResult<ReportTemplateDto>> DeleteReportTemplate([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
@@ -125,7 +131,7 @@ namespace API.Controllerrs
             _context.ReportTemplates.Remove(reportTemplate);
             await _context.SaveChangesAsync();
 
-            return Ok(mapper.Map<API.Models.ReportTemplateDto>(reportTemplate));
+            return Ok(mapper.Map<ReportTemplateDto>(reportTemplate));
         }
 
         private bool ReportTemplateExists(int id)

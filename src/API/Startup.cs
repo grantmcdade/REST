@@ -31,6 +31,16 @@ namespace API
         public IConfiguration Configuration { get; }
         public IHostingEnvironment Environment { get; }
 
+        internal static IMapper CreateMapper()
+        {
+            var mapperConfig = new MapperConfiguration(config =>
+            {
+                config.CreateMap<Data.Models.ReportTemplateReportTemplateTag, string>().ConstructUsing(rtrti => rtrti.ReportTemplateTag.Name);
+                config.CreateMap<Data.Models.ReportTemplate, Models.ReportTemplateDto>();
+            });
+            return mapperConfig.CreateMapper();
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -57,7 +67,6 @@ namespace API
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -95,12 +104,7 @@ namespace API
                 c.SwaggerDoc("v1", new Info { Title = "Aqua Reports API", Version = "v1" });
             });
 
-            var mapperConfig = new MapperConfiguration(config =>
-            {
-                config.CreateMap<Data.Models.ReportTemplateReportTemplateTag, string>().ConstructUsing(rtrti => rtrti.ReportTemplateTag.Name);
-                config.CreateMap<Data.Models.ReportTemplate, Models.ReportTemplateDto>();
-            });
-            services.AddSingleton(mapperConfig.CreateMapper());
+            services.AddSingleton(CreateMapper());
         }
 
         public void ConfigureTesting(
