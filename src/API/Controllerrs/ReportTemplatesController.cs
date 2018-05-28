@@ -63,20 +63,31 @@ namespace API.Controllerrs
         // PUT: api/ReportTemplates/5
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PutReportTemplate([FromRoute] int id, [FromBody] ReportTemplate reportTemplate)
+        public async Task<IActionResult> PutReportTemplate([FromRoute] int id, [FromBody] ReportTemplateDto reportTemplateDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != reportTemplate.Id)
+            if (id != reportTemplateDto.Id)
             {
                 return BadRequest();
             }
 
+            var reportTemplate = mapper.Map<ReportTemplate>(reportTemplateDto, options =>
+            {
+                options.Items.Add("Id", id);
+            });
             _context.Entry(reportTemplate).State = EntityState.Modified;
 
+            // Delete linked tags that are not in the DTO
+            var tagsToDelete = await _context.ReportTemplateReportTemplateTags
+                .Include(rtrtt1 => rtrtt1.ReportTemplateTag)
+                .Where(rtrtt => rtrtt.ReportTemplateId == id && !reportTemplateDto.Tags.Any(t => t == rtrtt.ReportTemplateTag.Name))
+                .ToListAsync();
+
+            _context.ReportTemplateReportTemplateTags.RemoveRange(tagsToDelete);
             try
             {
                 await _context.SaveChangesAsync();
@@ -99,17 +110,18 @@ namespace API.Controllerrs
         // POST: api/ReportTemplates
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<ReportTemplateDto>> PostReportTemplate([FromBody] ReportTemplate reportTemplate)
+        public async Task<ActionResult<ReportTemplateDto>> PostReportTemplate([FromBody] ReportTemplateDto reportTemplateDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            var reportTemplate = mapper.Map<ReportTemplate>(reportTemplateDto);
             _context.ReportTemplates.Add(reportTemplate);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetReportTemplate", new { id = reportTemplate.Id }, mapper.Map<ReportTemplateDto>(reportTemplate));
+            return CreatedAtAction("GetReportTemplate", new { id = reportTemplateDto.Id }, mapper.Map<ReportTemplateDto>(reportTemplate));
         }
 
         // DELETE: api/ReportTemplates/5

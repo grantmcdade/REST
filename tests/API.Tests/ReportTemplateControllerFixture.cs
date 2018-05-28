@@ -14,7 +14,11 @@ namespace API.Tests
             Context = new ApplicationDbContext(optionsBuilder.Options);
             SeedData.PopulateTestData(Context);
 
-            Mapper = Startup.CreateMapper();
+            var mapperConfig = new MapperConfiguration(options => 
+            {
+                options.AddProfile<MapperProfile>();
+            });
+            Mapper = mapperConfig.CreateMapper();
 
             Controller = new ReportTemplatesController(Context, Mapper);
         }
