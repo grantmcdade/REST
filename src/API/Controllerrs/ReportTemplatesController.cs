@@ -121,7 +121,7 @@ namespace API.Controllerrs
             _context.ReportTemplates.Add(reportTemplate);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetReportTemplate", new { id = reportTemplateDto.Id }, mapper.Map<ReportTemplateDto>(reportTemplate));
+            return CreatedAtAction("GetReportTemplate", new { id = reportTemplate.Id }, mapper.Map<ReportTemplateDto>(reportTemplate));
         }
 
         // DELETE: api/ReportTemplates/5

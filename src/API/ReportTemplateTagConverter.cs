@@ -30,8 +30,13 @@ namespace API
                 context.ReportTemplateTags.Add(rt);
             }
 
-            var rtrtt = context.ReportTemplateReportTemplateTags
-                .SingleOrDefault(rtrtt1 => rtrtt1.ReportTemplateTagId == rt.Id && rtrtt1.ReportTemplateId == Int32.Parse(autoMapperContext.Items["Id"].ToString()));
+            ReportTemplateReportTemplateTag rtrtt = null;
+            if (autoMapperContext.Items.TryGetValue("Id", out object value))
+            {
+                var reportId = System.Convert.ToInt32(value);
+                rtrtt = context.ReportTemplateReportTemplateTags
+                    .SingleOrDefault(rtrtt1 => rtrtt1.ReportTemplateTagId == rt.Id && rtrtt1.ReportTemplateId == reportId);
+            }
 
             if (rtrtt == null)
             {
