@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace API.Models
+namespace API.Core.Models
 {
-    public class ReportTemplateDto
+    public class ReportTemplate : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public virtual IEnumerable<string> Tags { get; set; }
+        public virtual IEnumerable<ReportTemplateReportTemplateTag> Tags { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
         public string ThumbnailImage { get; set; }

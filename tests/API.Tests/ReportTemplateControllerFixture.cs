@@ -1,5 +1,6 @@
 ﻿using API.Controllerrs;
-using API.Data;
+using API.Core;
+using API.Infrastructure;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 

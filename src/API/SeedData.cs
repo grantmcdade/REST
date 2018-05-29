@@ -1,6 +1,6 @@
 ﻿using System;
-using API.Data;
-using API.Data.Models;
+using API.Core.Models;
+using API.Infrastructure;
 
 namespace API
 {

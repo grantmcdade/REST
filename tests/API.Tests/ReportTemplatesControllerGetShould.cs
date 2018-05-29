@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.Core.Dtos;
+using API.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

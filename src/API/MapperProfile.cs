@@ -1,5 +1,5 @@
-﻿using API.Data.Models;
-using API.Models;
+﻿using API.Core.Dtos;
+using API.Core.Models;
 using AutoMapper;
 using System;
 using System.Collections.Generic;

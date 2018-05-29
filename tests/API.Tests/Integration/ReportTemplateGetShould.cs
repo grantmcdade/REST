@@ -1,5 +1,4 @@
-using API.Data.Models;
-using API.Models;
+using API.Core.Dtos;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;

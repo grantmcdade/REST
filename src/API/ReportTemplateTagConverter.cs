@@ -1,12 +1,7 @@
-﻿using API.Data;
-using API.Data.Models;
+﻿using API.Core.Models;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using API.Infrastructure;
 
 namespace API
 {

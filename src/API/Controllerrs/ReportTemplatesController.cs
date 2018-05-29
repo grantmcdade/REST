@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using API.Data;
-using API.Data.Models;
+using API.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
-using API.Models;
+using API.Infrastructure;
+using API.Core.Dtos;
 
 namespace API.Controllerrs
 {

@@ -1,22 +1,21 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using API.Data;
+using API.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AspNet.Security.OAuth.Validation;
 using Swashbuckle.AspNetCore.Swagger;
 using AutoMapper;
-using API.Core;
-using Microsoft.Extensions.Logging;
+using MediatR;
+using StructureMap;
+using API.Handlers.Queries;
+using API.Valdators;
+using API.Infrastructure;
 
 namespace API
 {
@@ -32,7 +31,7 @@ namespace API
         public IHostingEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -95,6 +94,29 @@ namespace API
             });
 
             services.AddAutoMapper(typeof(Startup).Assembly);
+
+            var container = new Container(cfg =>
+            {
+                cfg.Scan(scanner =>
+                {
+                    scanner.AssemblyContainingType<GetReportTemplates>(); // Our assembly with requests & handlers
+                    scanner.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<>)); // Handlers with no response
+                    scanner.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<,>)); // Handlers with a response
+                    scanner.ConnectImplementationsToTypesClosing(typeof(INotificationHandler<>));
+                });
+                cfg.Scan(scanner =>
+                {
+                    scanner.AssemblyContainingType<ReportTemplateCreateValidator>();
+                    scanner.ConnectImplementationsToTypesClosing(typeof(FluentValidation.AbstractValidator<>));
+                });
+                cfg.For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
+                cfg.For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
+                cfg.For<IMediator>().Use<Mediator>();
+
+                cfg.Populate(services);
+            });
+
+            return container.GetInstance<IServiceProvider>();
         }
 
         public void ConfigureTesting(
