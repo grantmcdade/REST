@@ -2,7 +2,9 @@
 using API.Core;
 using API.Infrastructure;
 using AutoMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 
 namespace API.Tests
 {
@@ -21,10 +23,11 @@ namespace API.Tests
             });
             Mapper = mapperConfig.CreateMapper();
 
-            Controller = new ReportTemplatesController(Context, Mapper);
+            Controller = new ReportTemplatesController(Context, Mapper, MockMediator.Object);
         }
 
         public IMapper Mapper { get; }
+        public Mock<IMediator> MockMediator { get; } = new Mock<IMediator>();
         public ReportTemplatesController Controller { get; }
         public ApplicationDbContext Context { get; }
     }

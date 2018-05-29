@@ -1,5 +1,6 @@
 ﻿using API.Core.Dtos;
 using API.Core.Models;
+using API.Handlers.Commands;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,10 @@ namespace API
     {
         public MapperProfile()
         {
-            CreateMap<ReportTemplateReportTemplateTag, string>().ConstructUsing(rtrti => rtrti.ReportTemplateTag.Name);
+            CreateMap<ReportTemplateReportTemplateTag, string>().ProjectUsing(rtrti => rtrti.ReportTemplateTag.Name);
             CreateMap<string, ReportTemplateReportTemplateTag>().ConvertUsing<ReportTemplateTagConverter>();
             CreateMap<ReportTemplate, ReportTemplateDto>();
+            CreateMap<ReportTemplateCreate, ReportTemplate>();
         }
     }
 }

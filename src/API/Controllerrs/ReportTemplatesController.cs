@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using API.Infrastructure;
 using API.Core.Dtos;
+using MediatR;
+using API.Handlers.Queries;
+using API.Handlers.Commands;
 
 namespace API.Controllerrs
 {
@@ -17,23 +20,20 @@ namespace API.Controllerrs
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper mapper;
+        private readonly IMediator mediator;
 
-        public ReportTemplatesController(ApplicationDbContext context, IMapper mapper)
+        public ReportTemplatesController(ApplicationDbContext context, IMapper mapper, IMediator mediator)
         {
             _context = context;
             this.mapper = mapper;
+            this.mediator = mediator;
         }
 
         // GET: api/ReportTemplates
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ReportTemplateDto>>> GetReportTemplates()
         {
-            var model = await _context.ReportTemplates
-                .Include(rt => rt.Tags)
-                .ThenInclude(rtt => rtt.ReportTemplateTag)
-                .ToListAsync();
-
-            return Json(model.Select(rt => mapper.Map<ReportTemplateDto>(rt)));
+            return Json(await mediator.Send(new GetReportTemplates()));
         }
 
         // GET: api/ReportTemplates/5
@@ -45,17 +45,14 @@ namespace API.Controllerrs
                 return BadRequest(ModelState);
             }
 
-            var reportTemplate = await _context.ReportTemplates
-                .Include(rt => rt.Tags)
-                .ThenInclude(rtt => rtt.ReportTemplateTag)
-                .SingleOrDefaultAsync(rt => rt.Id == id);
+            var reportTemplate = await mediator.Send(new ReportTemplatesGetById { Id = id });
 
             if (reportTemplate == null)
             {
                 return NotFound();
             }
 
-            return Ok(mapper.Map<ReportTemplateDto>(reportTemplate));
+            return Ok(reportTemplate);
         }
 
         // PUT: api/ReportTemplates/5
@@ -108,18 +105,16 @@ namespace API.Controllerrs
         // POST: api/ReportTemplates
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<ReportTemplateDto>> PostReportTemplate([FromBody] ReportTemplateDto reportTemplateDto)
+        public async Task<ActionResult<ReportTemplateDto>> PostReportTemplate([FromBody] ReportTemplateCreate command)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var reportTemplate = mapper.Map<ReportTemplate>(reportTemplateDto);
-            _context.ReportTemplates.Add(reportTemplate);
-            await _context.SaveChangesAsync();
+            var id = await mediator.Send(command);
 
-            return CreatedAtAction("GetReportTemplate", new { id = reportTemplate.Id }, mapper.Map<ReportTemplateDto>(reportTemplate));
+            return CreatedAtAction("GetReportTemplate", new { id }, await mediator.Send(new ReportTemplatesGetById { Id = id }));
         }
 
         // DELETE: api/ReportTemplates/5
