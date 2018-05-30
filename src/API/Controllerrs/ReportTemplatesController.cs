@@ -11,6 +11,8 @@ using API.Core.Dtos;
 using MediatR;
 using API.Handlers.Queries;
 using API.Handlers.Commands;
+using API.Valdators;
+using FluentValidation;
 
 namespace API.Controllerrs
 {
@@ -33,7 +35,7 @@ namespace API.Controllerrs
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ReportTemplateDto>>> GetReportTemplates()
         {
-            return Json(await mediator.Send(new GetReportTemplates()));
+            return Json(await mediator.Send(new ReportTemplatesGet()));
         }
 
         // GET: api/ReportTemplates/5
@@ -58,34 +60,21 @@ namespace API.Controllerrs
         // PUT: api/ReportTemplates/5
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PutReportTemplate([FromRoute] int id, [FromBody] ReportTemplateDto reportTemplateDto)
+        public async Task<IActionResult> PutReportTemplate([FromRoute] int id, [FromBody] ReportTemplateUpdate command)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != reportTemplateDto.Id)
+            if (id != command.Id)
             {
                 return BadRequest();
             }
 
-            var reportTemplate = mapper.Map<ReportTemplate>(reportTemplateDto, options =>
-            {
-                options.Items.Add("Id", id);
-            });
-            _context.Entry(reportTemplate).State = EntityState.Modified;
-
-            // Delete linked tags that are not in the DTO
-            var tagsToDelete = await _context.ReportTemplateReportTemplateTags
-                .Include(rtrtt1 => rtrtt1.ReportTemplateTag)
-                .Where(rtrtt => rtrtt.ReportTemplateId == id && !reportTemplateDto.Tags.Any(t => t == rtrtt.ReportTemplateTag.Name))
-                .ToListAsync();
-
-            _context.ReportTemplateReportTemplateTags.RemoveRange(tagsToDelete);
             try
             {
-                await _context.SaveChangesAsync();
+                await mediator.Send(command);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -97,6 +86,11 @@ namespace API.Controllerrs
                 {
                     throw;
                 }
+            }
+            catch (ValidationException ex)
+            {
+                ex.AddToModelState(ModelState);
+                return BadRequest(ModelState);
             }
 
             return NoContent();

@@ -1,5 +1,6 @@
 ﻿using API.Core.Dtos;
 using API.Core.Models;
+using API.Handlers.Commands;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -17,7 +18,7 @@ namespace API.Tests
         [Fact]
         public async Task UpdateTheItem()
         {
-            var item = new ReportTemplateDto
+            var item = new ReportTemplateUpdate
             {
                 Id = 1,
                 Name = "Test"

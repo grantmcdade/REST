@@ -12,16 +12,16 @@ using AutoMapper.QueryableExtensions;
 
 namespace API.Handlers
 {
-    public class GetReportTemplatesHandler : IRequestHandler<GetReportTemplates, IEnumerable<ReportTemplateDto>>
+    public class ReportTemplatesGetHandler : IRequestHandler<ReportTemplatesGet, IEnumerable<ReportTemplateDto>>
     {
         private readonly ApplicationDbContext context;
 
-        public GetReportTemplatesHandler(ApplicationDbContext context)
+        public ReportTemplatesGetHandler(ApplicationDbContext context)
         {
             this.context = context;
         }
 
-        public async Task<IEnumerable<ReportTemplateDto>> Handle(GetReportTemplates request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ReportTemplateDto>> Handle(ReportTemplatesGet request, CancellationToken cancellationToken)
         {
             return await context.ReportTemplates
                 .Include(rt => rt.Tags)

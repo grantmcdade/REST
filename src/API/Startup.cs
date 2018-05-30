@@ -99,14 +99,14 @@ namespace API
             {
                 cfg.Scan(scanner =>
                 {
-                    scanner.AssemblyContainingType<GetReportTemplates>(); // Our assembly with requests & handlers
+                    scanner.AssemblyContainingType<ReportTemplatesGet>(); // Our assembly with requests & handlers
                     scanner.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<>)); // Handlers with no response
                     scanner.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<,>)); // Handlers with a response
                     scanner.ConnectImplementationsToTypesClosing(typeof(INotificationHandler<>));
                 });
                 cfg.Scan(scanner =>
                 {
-                    scanner.AssemblyContainingType<ReportTemplateCreateValidator>();
+                    scanner.AssemblyContainingType<ReportTemplateValidator>();
                     scanner.ConnectImplementationsToTypesClosing(typeof(FluentValidation.AbstractValidator<>));
                 });
                 cfg.For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace API.Handlers.Queries
 {
-    public class GetReportTemplates : IRequest<IEnumerable<ReportTemplateDto>>
+    public class ReportTemplatesGet : IRequest<IEnumerable<ReportTemplateDto>>
     {
         
     }

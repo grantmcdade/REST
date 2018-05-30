@@ -18,6 +18,7 @@ namespace API
             CreateMap<string, ReportTemplateReportTemplateTag>().ConvertUsing<ReportTemplateTagConverter>();
             CreateMap<ReportTemplate, ReportTemplateDto>();
             CreateMap<ReportTemplateCreate, ReportTemplate>();
+            CreateMap<ReportTemplateUpdate, ReportTemplate>();
         }
     }
 }
