@@ -1,7 +1,7 @@
 #addin nuget:?package=Cake.Curl&version=3.0.0
 
 var target = Argument("target", "Default");
-var packageOutputDirectory = Argument("output", "package");
+var packageOutputDirectory = Argument("PackageOutputDirectory", "package");
 var version = "0.1.0";
 
 Task("Build")
@@ -26,12 +26,12 @@ Task("Publish")
     Recursive = true
   });
 
+  EnsureDirectoryExists(packageOutputDirectory);
+
   DotNetCorePublish("./src/API/API.csproj",
     new DotNetCorePublishSettings {
       OutputDirectory = packageOutputDirectory
     });
-
-  EnsureDirectoryExists(packageOutputDirectory);
 
   Information($"Creating { packageOutputDirectory }/API.{ version }.zip");
   Zip(packageOutputDirectory, $"{ packageOutputDirectory }/API.{ version }.zip");
