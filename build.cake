@@ -20,6 +20,7 @@ Task("Test")
 Task("Publish")
   .IsDependentOn("Build")
   .IsDependentOn("Version")
+  .IsDependentOn("Test")
   .Does(() =>
 {
   DeleteDirectory(packageOutputDirectory, new DeleteDirectorySettings {
