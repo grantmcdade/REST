@@ -87,6 +87,12 @@ namespace API.Infrastructure
                     ReportTemplateTagId = tags[1].Id
                 }
             });
+
+            foreach (var item in builder.Model.GetEntityTypes())
+            {
+                item.Relational().TableName =
+                    $"API_{ item.Relational().TableName }";
+            }
         }
 
         public DbSet<ReportTemplate> ReportTemplates { get; set; }

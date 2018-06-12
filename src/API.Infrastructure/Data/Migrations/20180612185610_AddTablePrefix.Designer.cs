@@ -7,17 +7,17 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace API.Infrastructure.Migrations
+namespace API.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180525170426_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20180612185610_AddTablePrefix")]
+    partial class AddTablePrefix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.0-rc1-32029")
+                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -45,7 +45,7 @@ namespace API.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ReportTemplates");
+                    b.ToTable("API_ReportTemplates");
 
                     b.HasData(
                         new { Id = 1, CreationDate = new DateTime(2018, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), Description = "The test execution result by test scenario", FullSizeImage = "/Sample-data/TestExecutionResultByTestScenario/image.png", LastModifiedDate = new DateTime(2018, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), Name = "Test Execution Result By Test Scenario", PdfFile = "/Sample-data/TestExecutionResultByTestScenario/TestExecutionResultByTestScenario.pdf", ThumbnailImage = "/Sample-data/TestExecutionResultByTestScenario/thumbnail.png", ZipFile = "/Sample-data/TestExecutionResultByTestScenario/TestExecutionResultByTestScenario.zip" },
@@ -63,7 +63,7 @@ namespace API.Infrastructure.Migrations
 
                     b.HasIndex("ReportTemplateTagId");
 
-                    b.ToTable("ReportTemplateReportTemplateTags");
+                    b.ToTable("API_ReportTemplateReportTemplateTags");
 
                     b.HasData(
                         new { ReportTemplateId = 1, ReportTemplateTagId = 1 },
@@ -82,7 +82,7 @@ namespace API.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ReportTemplateTags");
+                    b.ToTable("API_ReportTemplateTags");
 
                     b.HasData(
                         new { Id = 1, Name = "Scenario" },
@@ -113,7 +113,7 @@ namespace API.Infrastructure.Migrations
                         .HasName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles");
+                    b.ToTable("API_AspNetRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -133,7 +133,7 @@ namespace API.Infrastructure.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims");
+                    b.ToTable("API_AspNetRoleClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
@@ -184,7 +184,7 @@ namespace API.Infrastructure.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("API_AspNetUsers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -204,7 +204,7 @@ namespace API.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims");
+                    b.ToTable("API_AspNetUserClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -224,7 +224,7 @@ namespace API.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins");
+                    b.ToTable("API_AspNetUserLogins");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -237,7 +237,7 @@ namespace API.Infrastructure.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles");
+                    b.ToTable("API_AspNetUserRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -254,7 +254,7 @@ namespace API.Infrastructure.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens");
+                    b.ToTable("API_AspNetUserTokens");
                 });
 
             modelBuilder.Entity("OpenIddict.Models.OpenIddictApplication", b =>
@@ -290,7 +290,7 @@ namespace API.Infrastructure.Migrations
                     b.HasIndex("ClientId")
                         .IsUnique();
 
-                    b.ToTable("OpenIddictApplications");
+                    b.ToTable("API_OpenIddictApplications");
                 });
 
             modelBuilder.Entity("OpenIddict.Models.OpenIddictAuthorization", b =>
@@ -320,7 +320,7 @@ namespace API.Infrastructure.Migrations
 
                     b.HasIndex("ApplicationId");
 
-                    b.ToTable("OpenIddictAuthorizations");
+                    b.ToTable("API_OpenIddictAuthorizations");
                 });
 
             modelBuilder.Entity("OpenIddict.Models.OpenIddictScope", b =>
@@ -347,7 +347,7 @@ namespace API.Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("OpenIddictScopes");
+                    b.ToTable("API_OpenIddictScopes");
                 });
 
             modelBuilder.Entity("OpenIddict.Models.OpenIddictToken", b =>
@@ -390,7 +390,7 @@ namespace API.Infrastructure.Migrations
                         .IsUnique()
                         .HasFilter("[ReferenceId] IS NOT NULL");
 
-                    b.ToTable("OpenIddictTokens");
+                    b.ToTable("API_OpenIddictTokens");
                 });
 
             modelBuilder.Entity("API.Core.Models.ReportTemplateReportTemplateTag", b =>

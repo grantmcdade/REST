@@ -2,14 +2,14 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace API.Infrastructure.Migrations
+namespace API.Infrastructure.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class AddTablePrefix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AspNetRoles",
+                name: "API_AspNetRoles",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -19,11 +19,11 @@ namespace API.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                    table.PrimaryKey("PK_API_AspNetRoles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
+                name: "API_AspNetUsers",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -44,11 +44,11 @@ namespace API.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.PrimaryKey("PK_API_AspNetUsers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "OpenIddictApplications",
+                name: "API_OpenIddictApplications",
                 columns: table => new
                 {
                     ClientId = table.Column<string>(nullable: false),
@@ -65,11 +65,11 @@ namespace API.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OpenIddictApplications", x => x.Id);
+                    table.PrimaryKey("PK_API_OpenIddictApplications", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "OpenIddictScopes",
+                name: "API_OpenIddictScopes",
                 columns: table => new
                 {
                     ConcurrencyToken = table.Column<string>(nullable: true),
@@ -82,11 +82,11 @@ namespace API.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OpenIddictScopes", x => x.Id);
+                    table.PrimaryKey("PK_API_OpenIddictScopes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ReportTemplates",
+                name: "API_ReportTemplates",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -102,11 +102,11 @@ namespace API.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ReportTemplates", x => x.Id);
+                    table.PrimaryKey("PK_API_ReportTemplates", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ReportTemplateTags",
+                name: "API_ReportTemplateTags",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -115,11 +115,11 @@ namespace API.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ReportTemplateTags", x => x.Id);
+                    table.PrimaryKey("PK_API_ReportTemplateTags", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetRoleClaims",
+                name: "API_AspNetRoleClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -130,17 +130,17 @@ namespace API.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
+                    table.PrimaryKey("PK_API_AspNetRoleClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        name: "FK_API_AspNetRoleClaims_API_AspNetRoles_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
+                        principalTable: "API_AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserClaims",
+                name: "API_AspNetUserClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -151,17 +151,17 @@ namespace API.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
+                    table.PrimaryKey("PK_API_AspNetUserClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                        name: "FK_API_AspNetUserClaims_API_AspNetUsers_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "API_AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserLogins",
+                name: "API_AspNetUserLogins",
                 columns: table => new
                 {
                     LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
@@ -171,17 +171,17 @@ namespace API.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                    table.PrimaryKey("PK_API_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
                     table.ForeignKey(
-                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        name: "FK_API_AspNetUserLogins_API_AspNetUsers_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "API_AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserRoles",
+                name: "API_AspNetUserRoles",
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
@@ -189,23 +189,23 @@ namespace API.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.PrimaryKey("PK_API_AspNetUserRoles", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
+                        name: "FK_API_AspNetUserRoles_API_AspNetRoles_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
+                        principalTable: "API_AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                        name: "FK_API_AspNetUserRoles_API_AspNetUsers_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "API_AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserTokens",
+                name: "API_AspNetUserTokens",
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
@@ -215,17 +215,17 @@ namespace API.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.PrimaryKey("PK_API_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
                     table.ForeignKey(
-                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        name: "FK_API_AspNetUserTokens_API_AspNetUsers_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "API_AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "OpenIddictAuthorizations",
+                name: "API_OpenIddictAuthorizations",
                 columns: table => new
                 {
                     ApplicationId = table.Column<string>(nullable: true),
@@ -239,17 +239,17 @@ namespace API.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OpenIddictAuthorizations", x => x.Id);
+                    table.PrimaryKey("PK_API_OpenIddictAuthorizations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OpenIddictAuthorizations_OpenIddictApplications_ApplicationId",
+                        name: "FK_API_OpenIddictAuthorizations_API_OpenIddictApplications_ApplicationId",
                         column: x => x.ApplicationId,
-                        principalTable: "OpenIddictApplications",
+                        principalTable: "API_OpenIddictApplications",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ReportTemplateReportTemplateTags",
+                name: "API_ReportTemplateReportTemplateTags",
                 columns: table => new
                 {
                     ReportTemplateId = table.Column<int>(nullable: false),
@@ -257,23 +257,23 @@ namespace API.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ReportTemplateReportTemplateTags", x => new { x.ReportTemplateId, x.ReportTemplateTagId });
+                    table.PrimaryKey("PK_API_ReportTemplateReportTemplateTags", x => new { x.ReportTemplateId, x.ReportTemplateTagId });
                     table.ForeignKey(
-                        name: "FK_ReportTemplateReportTemplateTags_ReportTemplates_ReportTemplateId",
+                        name: "FK_API_ReportTemplateReportTemplateTags_API_ReportTemplates_ReportTemplateId",
                         column: x => x.ReportTemplateId,
-                        principalTable: "ReportTemplates",
+                        principalTable: "API_ReportTemplates",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ReportTemplateReportTemplateTags_ReportTemplateTags_ReportTemplateTagId",
+                        name: "FK_API_ReportTemplateReportTemplateTags_API_ReportTemplateTags_ReportTemplateTagId",
                         column: x => x.ReportTemplateTagId,
-                        principalTable: "ReportTemplateTags",
+                        principalTable: "API_ReportTemplateTags",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "OpenIddictTokens",
+                name: "API_OpenIddictTokens",
                 columns: table => new
                 {
                     ApplicationId = table.Column<string>(nullable: true),
@@ -291,23 +291,23 @@ namespace API.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OpenIddictTokens", x => x.Id);
+                    table.PrimaryKey("PK_API_OpenIddictTokens", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OpenIddictTokens_OpenIddictApplications_ApplicationId",
+                        name: "FK_API_OpenIddictTokens_API_OpenIddictApplications_ApplicationId",
                         column: x => x.ApplicationId,
-                        principalTable: "OpenIddictApplications",
+                        principalTable: "API_OpenIddictApplications",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OpenIddictTokens_OpenIddictAuthorizations_AuthorizationId",
+                        name: "FK_API_OpenIddictTokens_API_OpenIddictAuthorizations_AuthorizationId",
                         column: x => x.AuthorizationId,
-                        principalTable: "OpenIddictAuthorizations",
+                        principalTable: "API_OpenIddictAuthorizations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
-                table: "ReportTemplateTags",
+                table: "API_ReportTemplateTags",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
@@ -318,7 +318,7 @@ namespace API.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "ReportTemplates",
+                table: "API_ReportTemplates",
                 columns: new[] { "Id", "CreationDate", "Description", "FullSizeImage", "LastModifiedDate", "Name", "PdfFile", "ThumbnailImage", "ZipFile" },
                 values: new object[,]
                 {
@@ -327,142 +327,142 @@ namespace API.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "ReportTemplateReportTemplateTags",
+                table: "API_ReportTemplateReportTemplateTags",
                 columns: new[] { "ReportTemplateId", "ReportTemplateTagId" },
                 values: new object[] { 1, 1 });
 
             migrationBuilder.InsertData(
-                table: "ReportTemplateReportTemplateTags",
+                table: "API_ReportTemplateReportTemplateTags",
                 columns: new[] { "ReportTemplateId", "ReportTemplateTagId" },
                 values: new object[] { 2, 2 });
 
             migrationBuilder.InsertData(
-                table: "ReportTemplateReportTemplateTags",
+                table: "API_ReportTemplateReportTemplateTags",
                 columns: new[] { "ReportTemplateId", "ReportTemplateTagId" },
                 values: new object[] { 1, 3 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetRoleClaims_RoleId",
-                table: "AspNetRoleClaims",
+                name: "IX_API_AspNetRoleClaims_RoleId",
+                table: "API_AspNetRoleClaims",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
-                table: "AspNetRoles",
+                table: "API_AspNetRoles",
                 column: "NormalizedName",
                 unique: true,
                 filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserClaims_UserId",
-                table: "AspNetUserClaims",
+                name: "IX_API_AspNetUserClaims_UserId",
+                table: "API_AspNetUserClaims",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserLogins_UserId",
-                table: "AspNetUserLogins",
+                name: "IX_API_AspNetUserLogins_UserId",
+                table: "API_AspNetUserLogins",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserRoles_RoleId",
-                table: "AspNetUserRoles",
+                name: "IX_API_AspNetUserRoles_RoleId",
+                table: "API_AspNetUserRoles",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
-                table: "AspNetUsers",
+                table: "API_AspNetUsers",
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
-                table: "AspNetUsers",
+                table: "API_AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OpenIddictApplications_ClientId",
-                table: "OpenIddictApplications",
+                name: "IX_API_OpenIddictApplications_ClientId",
+                table: "API_OpenIddictApplications",
                 column: "ClientId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_OpenIddictAuthorizations_ApplicationId",
-                table: "OpenIddictAuthorizations",
+                name: "IX_API_OpenIddictAuthorizations_ApplicationId",
+                table: "API_OpenIddictAuthorizations",
                 column: "ApplicationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OpenIddictScopes_Name",
-                table: "OpenIddictScopes",
+                name: "IX_API_OpenIddictScopes_Name",
+                table: "API_OpenIddictScopes",
                 column: "Name",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_OpenIddictTokens_ApplicationId",
-                table: "OpenIddictTokens",
+                name: "IX_API_OpenIddictTokens_ApplicationId",
+                table: "API_OpenIddictTokens",
                 column: "ApplicationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OpenIddictTokens_AuthorizationId",
-                table: "OpenIddictTokens",
+                name: "IX_API_OpenIddictTokens_AuthorizationId",
+                table: "API_OpenIddictTokens",
                 column: "AuthorizationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OpenIddictTokens_ReferenceId",
-                table: "OpenIddictTokens",
+                name: "IX_API_OpenIddictTokens_ReferenceId",
+                table: "API_OpenIddictTokens",
                 column: "ReferenceId",
                 unique: true,
                 filter: "[ReferenceId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ReportTemplateReportTemplateTags_ReportTemplateTagId",
-                table: "ReportTemplateReportTemplateTags",
+                name: "IX_API_ReportTemplateReportTemplateTags_ReportTemplateTagId",
+                table: "API_ReportTemplateReportTemplateTags",
                 column: "ReportTemplateTagId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AspNetRoleClaims");
+                name: "API_AspNetRoleClaims");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserClaims");
+                name: "API_AspNetUserClaims");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserLogins");
+                name: "API_AspNetUserLogins");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserRoles");
+                name: "API_AspNetUserRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserTokens");
+                name: "API_AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "OpenIddictScopes");
+                name: "API_OpenIddictScopes");
 
             migrationBuilder.DropTable(
-                name: "OpenIddictTokens");
+                name: "API_OpenIddictTokens");
 
             migrationBuilder.DropTable(
-                name: "ReportTemplateReportTemplateTags");
+                name: "API_ReportTemplateReportTemplateTags");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "API_AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "API_AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "OpenIddictAuthorizations");
+                name: "API_OpenIddictAuthorizations");
 
             migrationBuilder.DropTable(
-                name: "ReportTemplates");
+                name: "API_ReportTemplates");
 
             migrationBuilder.DropTable(
-                name: "ReportTemplateTags");
+                name: "API_ReportTemplateTags");
 
             migrationBuilder.DropTable(
-                name: "OpenIddictApplications");
+                name: "API_OpenIddictApplications");
         }
     }
 }

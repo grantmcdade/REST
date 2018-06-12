@@ -16,6 +16,7 @@ using StructureMap;
 using API.Handlers.Queries;
 using API.Valdators;
 using API.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API
 {
@@ -40,7 +41,8 @@ namespace API
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options => {
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
                 if (Environment.IsEnvironment(Constants.Testing))
                 {
                     options.UseInMemoryDatabase(Constants.Testing);
@@ -48,10 +50,16 @@ namespace API
                 else
                 {
                     options.UseSqlServer(
-                        Configuration.GetConnectionString("DefaultConnection"));
+                        Configuration.GetConnectionString("DefaultConnection"), sql => 
+                        {
+                            sql.MigrationsHistoryTable("API_" + HistoryRepository.DefaultTableName);
+                        });
                 }
                 options.UseOpenIddict();
-                options.EnableSensitiveDataLogging(true);
+                if (Environment.IsDevelopment())
+                {
+                    options.EnableSensitiveDataLogging(true);
+                }
             });
 
             services.AddDefaultIdentity<IdentityUser>()
@@ -90,7 +98,7 @@ namespace API
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Aqua Reports API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "Reports API", Version = "v1" });
             });
 
             AutoMapper.ServiceCollectionExtensions.UseStaticRegistration = false;
@@ -154,7 +162,7 @@ namespace API
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Aqua Reports API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Reports API V1");
             });
 
 

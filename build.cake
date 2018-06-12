@@ -59,13 +59,18 @@ Task("Deploy")
   .IsDependentOn("Publish")
   .Does(() =>
 {
+  var username = EnvironmentVariable("DeployUsername");
+  var password = EnvironmentVariable("DeployPassword");
+
+  Information($"Deploying as user: { username } with password: { password }");
+
   CurlUploadFile(
     $"{ packageOutputDirectory }/API.{ version }.zip",
     new Uri("https://rest-demo.scm.azurewebsites.net/api/zipdeploy"),
     new CurlSettings {
       RequestCommand = "POST",
-      Username = EnvironmentVariable("DeployUsername"),
-      Password = EnvironmentVariable("DeployPassword"),
+      Username = username,
+      Password = password,
       ArgumentCustomization = args => {
         return args.Append("--fail");
       }
