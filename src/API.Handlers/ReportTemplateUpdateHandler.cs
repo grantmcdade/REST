@@ -17,18 +17,27 @@ namespace API.Handlers
     {
         private readonly ApplicationDbContext context;
         private readonly IMapper mapper;
+        private readonly IServiceProvider sp;
 
-        public ReportTemplateUpdateHandler(ApplicationDbContext context, IMapper mapper)
+        public ReportTemplateUpdateHandler(ApplicationDbContext context, IMapper mapper, IServiceProvider sp)
         {
             this.context = context;
             this.mapper = mapper;
+            this.sp = sp;
         }
 
-        public async Task Handle(ReportTemplateUpdate request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(ReportTemplateUpdate request, CancellationToken cancellationToken)
         {
-            var reportTemplate = mapper.Map<ReportTemplate>(request);
+            var reportTemplate = await context.ReportTemplates.Include(rt => rt.Tags).ThenInclude(rtrtt => rtrtt.ReportTemplateTag).SingleOrDefaultAsync(rt => rt.Id == request.Id);
+            if (reportTemplate == null)
+            {
+                reportTemplate = new ReportTemplate();
+            }
 
-            context.ReportTemplates.Add(reportTemplate);
+            mapper.Map(request, reportTemplate, opts =>
+            {
+                opts.ConstructServicesUsing(t => sp.GetService(t));
+            });
 
             // Delete linked tags that are not in the DTO
             var tagsToDelete = await context.ReportTemplateReportTemplateTags
@@ -38,6 +47,8 @@ namespace API.Handlers
             context.ReportTemplateReportTemplateTags.RemoveRange(tagsToDelete);
 
             await context.SaveChangesAsync();
+
+            return Unit.Value;
         }
     }
 }

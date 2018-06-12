@@ -10,7 +10,7 @@ namespace API.Core.Models
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public virtual IEnumerable<ReportTemplateReportTemplateTag> Tags { get; set; }
+        public virtual HashSet<ReportTemplateReportTemplateTag> Tags { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
         public string ThumbnailImage { get; set; }

@@ -15,6 +15,7 @@ namespace API.Tests
         public ReportTemplatesControllerGetShould(ReportTemplateControllerFixture fixture)
         {
             Fixture = fixture;
+            SeedData.PopulateTestData(Fixture.Context);
         }
 
         private ReportTemplateControllerFixture Fixture { get; }
@@ -44,7 +45,7 @@ namespace API.Tests
         [Fact]
         public async Task ReturnTheCorrectReportTemplate()
         {
-            var result = Assert.IsType<ActionResult<ReportTemplateDto>>(await Fixture.Controller.GetReportTemplate(1));
+            var result = Assert.IsType<ActionResult<ReportTemplateDto>>(await Fixture.Controller.GetReportTemplate(1001));
             var jsonResult = Assert.IsType<OkObjectResult>(result.Result);
             var dto = Assert.IsType<ReportTemplateDto>(jsonResult.Value);
 

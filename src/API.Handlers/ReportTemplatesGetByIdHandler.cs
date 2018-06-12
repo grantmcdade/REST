@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using API.Core.Dtos;
-using API.Core.Models;
 using API.Handlers.Queries;
 using API.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper.QueryableExtensions;
-using API.Handlers.Commands;
 using AutoMapper;
+using System.Linq;
 
 namespace API.Handlers
 {
@@ -30,7 +26,7 @@ namespace API.Handlers
             var reportTemplate = context.ReportTemplates
                 .Include(rt => rt.Tags)
                 .ThenInclude(rtt => rtt.ReportTemplateTag)
-                .ProjectTo<ReportTemplateDto>()
+                .Select(rt => mapper.Map<ReportTemplateDto>(rt))
                 .SingleOrDefaultAsync(rt => rt.Id == request.Id);
 
             return reportTemplate;

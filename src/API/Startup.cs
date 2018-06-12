@@ -93,7 +93,8 @@ namespace API
                 c.SwaggerDoc("v1", new Info { Title = "Aqua Reports API", Version = "v1" });
             });
 
-            services.AddAutoMapper(typeof(Startup).Assembly);
+            AutoMapper.ServiceCollectionExtensions.UseStaticRegistration = false;
+            services.AddAutoMapper();
 
             var container = new Container(cfg =>
             {
@@ -109,8 +110,7 @@ namespace API
                     scanner.AssemblyContainingType<ReportTemplateValidator>();
                     scanner.ConnectImplementationsToTypesClosing(typeof(FluentValidation.AbstractValidator<>));
                 });
-                cfg.For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
-                cfg.For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
+                cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
                 cfg.For<IMediator>().Use<Mediator>();
 
                 cfg.Populate(services);

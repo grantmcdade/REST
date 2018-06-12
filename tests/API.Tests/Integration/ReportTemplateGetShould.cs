@@ -45,7 +45,7 @@ namespace API.Tests.Itegration
         public async Task ReturnTheCorrectReportTemplate()
         {
             // Arrange & Act
-            var response = await Client.GetAsync("/api/reporttemplates/1");
+            var response = await Client.GetAsync("/api/reporttemplates/1001");
 
             var content = await response.Content.ReadAsStringAsync();
 

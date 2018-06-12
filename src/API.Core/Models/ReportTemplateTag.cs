@@ -9,6 +9,6 @@ namespace API.Core.Models
     public class ReportTemplateTag : BaseEntity
     {
         public string Name { get; set; }
-        public IEnumerable<ReportTemplateReportTemplateTag> Reports { get; set; }
+        public virtual HashSet<ReportTemplateReportTemplateTag> Reports { get; set; }
     }
 }
