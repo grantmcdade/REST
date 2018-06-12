@@ -2,19 +2,26 @@
 
 var target = Argument("target", "Default");
 var packageOutputDirectory = Argument("PackageOutputDirectory", "package");
+var configuration = Argument("Configuration", "Release");
 var version = "0.1.0";
 
 Task("Build")
   .Does(() =>
 {
-  DotNetCoreBuild("./Sample.sln");
+  DotNetCoreBuild("./Sample.sln",
+    new DotNetCoreBuildSettings {
+      Configuration = configuration
+    });
 });
 
 Task("Test")
   .IsDependentOn("Build")
   .Does(() =>
 {
-  DotNetCoreTest("./tests/API.Tests/API.Tests.csproj");
+  DotNetCoreTest("./tests/API.Tests/API.Tests.csproj",
+    new DotNetCoreTestSettings {
+      Configuration = configuration
+    });
 });
 
 Task("Publish")
@@ -23,19 +30,22 @@ Task("Publish")
   .IsDependentOn("Test")
   .Does(() =>
 {
-  DeleteDirectory(packageOutputDirectory, new DeleteDirectorySettings {
-    Recursive = true
-  });
+  if (DirectoryExists(packageOutputDirectory))
+  {
+    DeleteDirectory(packageOutputDirectory, new DeleteDirectorySettings {
+      Recursive = true
+    });
+  }
 
   EnsureDirectoryExists(packageOutputDirectory);
 
   DotNetCorePublish("./src/API/API.csproj",
     new DotNetCorePublishSettings {
-      OutputDirectory = packageOutputDirectory
+      Configuration = configuration
     });
 
   Information($"Creating { packageOutputDirectory }/API.{ version }.zip");
-  Zip(packageOutputDirectory, $"{ packageOutputDirectory }/API.{ version }.zip");
+  Zip($"./src/API/bin/{ configuration }/netcoreapp2.1/publish", $"{ packageOutputDirectory }/API.{ version }.zip");
 });
 
 Task("Version")
