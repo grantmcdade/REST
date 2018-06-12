@@ -3,6 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>aspnet-AquaReports-364F867B-D5C0-4F71-8D06-E0B8289B4AD1</UserSecretsId>
+    <Authors>Grant McDade</Authors>
+    <Product>API</Product>
+    <Description>REST API Sample</Description>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

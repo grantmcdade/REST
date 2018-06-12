@@ -260,3 +260,7 @@ paket-files/
 __pycache__/
 *.pyc
 *.txt
+
+tools/*
+!tools/packages.config
+package
