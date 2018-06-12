@@ -62,7 +62,7 @@ Task("Deploy")
   var username = EnvironmentVariable("DeployUsername");
   var password = EnvironmentVariable("DeployPassword");
 
-  Information($"Deploying as user: { username } with password: { password }");
+  Information($"Deploying as user: { username }");
 
   CurlUploadFile(
     $"{ packageOutputDirectory }/API.{ version }.zip",
