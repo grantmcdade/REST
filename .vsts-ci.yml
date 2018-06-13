@@ -14,23 +14,23 @@ steps:
     projects: '**\\*.csproj'
     arguments: '--configuration $(BuildConfiguration)'
 
-# - task: DotNetCoreCLI@2
-#   displayName: Test
-#   inputs:
-#     command: test
-#     publishTestResults: true
-#     arguments: '--configuration $(BuildConfiguration)'
+- task: DotNetCoreCLI@2
+  displayName: Test
+  inputs:
+    command: test
+    projects: '**\\*Tests.csproj'
+    publishTestResults: true
+    arguments: '--configuration $(BuildConfiguration)'
 
-# - task: DotNetCoreCLI@2
-#   displayName: Publish
-#   inputs:
-#     command: publish
-#     projects: '/src/API/API.csproj'
-#     publishWebProjects: True
-#     zipPublishedProjects: True
-#     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+- task: DotNetCoreCLI@2
+  displayName: Publish
+  inputs:
+    command: publish
+    publishWebProjects: True
+    zipPublishedProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
 
-# - task: PublishBuildArtifacts@1
-#   displayName: Publish Artifact
-#   inputs:
-#     PathtoPublish: '$(build.artifactstagingdirectory)'
+- task: PublishBuildArtifacts@1
+  displayName: Publish Artifact
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
