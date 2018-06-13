@@ -3,10 +3,11 @@ queue:
   condition: succeeded()
 
 steps:
-- task: NuGetToolInstaller@0
-  displayName: Use NuGet 4.7.0
-  inputs:
-    versionSpec: 4.7.0
+  - script: echo Hello World
+# - task: NuGetToolInstaller@0
+#   displayName: Use NuGet 4.7.0
+#   inputs:
+#     versionSpec: 4.7.0
 
 # - task: DotNetCoreCLI@2
 #   displayName: Build
