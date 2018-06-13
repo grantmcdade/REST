@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180612185610_AddTablePrefix")]
-    partial class AddTablePrefix
+    [Migration("20180613075600_OpenIdTables")]
+    partial class OpenIdTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -113,7 +113,7 @@ namespace API.Infrastructure.Data.Migrations
                         .HasName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("API_AspNetRoles");
+                    b.ToTable("AspNetRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -133,7 +133,7 @@ namespace API.Infrastructure.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("API_AspNetRoleClaims");
+                    b.ToTable("AspNetRoleClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
@@ -184,7 +184,7 @@ namespace API.Infrastructure.Data.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("API_AspNetUsers");
+                    b.ToTable("AspNetUsers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -204,7 +204,7 @@ namespace API.Infrastructure.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("API_AspNetUserClaims");
+                    b.ToTable("AspNetUserClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -224,7 +224,7 @@ namespace API.Infrastructure.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("API_AspNetUserLogins");
+                    b.ToTable("AspNetUserLogins");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -237,7 +237,7 @@ namespace API.Infrastructure.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("API_AspNetUserRoles");
+                    b.ToTable("AspNetUserRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -254,7 +254,7 @@ namespace API.Infrastructure.Data.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("API_AspNetUserTokens");
+                    b.ToTable("AspNetUserTokens");
                 });
 
             modelBuilder.Entity("OpenIddict.Models.OpenIddictApplication", b =>
@@ -290,7 +290,7 @@ namespace API.Infrastructure.Data.Migrations
                     b.HasIndex("ClientId")
                         .IsUnique();
 
-                    b.ToTable("API_OpenIddictApplications");
+                    b.ToTable("OpenIddictApplications");
                 });
 
             modelBuilder.Entity("OpenIddict.Models.OpenIddictAuthorization", b =>
@@ -320,7 +320,7 @@ namespace API.Infrastructure.Data.Migrations
 
                     b.HasIndex("ApplicationId");
 
-                    b.ToTable("API_OpenIddictAuthorizations");
+                    b.ToTable("OpenIddictAuthorizations");
                 });
 
             modelBuilder.Entity("OpenIddict.Models.OpenIddictScope", b =>
@@ -347,7 +347,7 @@ namespace API.Infrastructure.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("API_OpenIddictScopes");
+                    b.ToTable("OpenIddictScopes");
                 });
 
             modelBuilder.Entity("OpenIddict.Models.OpenIddictToken", b =>
@@ -390,7 +390,7 @@ namespace API.Infrastructure.Data.Migrations
                         .IsUnique()
                         .HasFilter("[ReferenceId] IS NOT NULL");
 
-                    b.ToTable("API_OpenIddictTokens");
+                    b.ToTable("OpenIddictTokens");
                 });
 
             modelBuilder.Entity("API.Core.Models.ReportTemplateReportTemplateTag", b =>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using API.Core.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -88,10 +89,14 @@ namespace API.Infrastructure
                 }
             });
 
+            var tablesToIgnore = new string[] { "AspNet", "OpenId" };
             foreach (var item in builder.Model.GetEntityTypes())
             {
-                item.Relational().TableName =
-                    $"API_{ item.Relational().TableName }";
+                if (!tablesToIgnore.Any(t => item.Relational().TableName.StartsWith(t)))
+                {
+                    item.Relational().TableName =
+                        $"API_{ item.Relational().TableName }";
+                }
             }
         }
 
