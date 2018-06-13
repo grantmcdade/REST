@@ -8,6 +8,8 @@ A sample of the API is hosted at [https://rest-demo.azurewebsites.net/swagger/in
 It makes use of the following NuGet libraries.
 
 + [AutoMapper](https://automapper.org/) - for mapping the report temlates from the database objects
++ [Mediator](https://github.com/jbogard/MediatR) - for the command/query implementation
++ [FluentValidation](https://github.com/JeremySkinner/FluentValidation) - for validation of API input
 + [OpenIddict](https://github.com/openiddict/openiddict-core) - for generating JWT access tokens
 + [Swashbuckle](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) - for documenting and exploring the API
 
