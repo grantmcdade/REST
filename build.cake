@@ -62,6 +62,11 @@ Task("Deploy")
   var username = EnvironmentVariable("DeployUsername");
   var password = EnvironmentVariable("DeployPassword");
 
+  if (String.IsNullOrEmpty(password))
+  {
+      Information("Password is not empty!");
+  }
+
   Information($"Deploying as user: { username }");
 
   CurlUploadFile(
