@@ -37,6 +37,7 @@ namespace API.Tests
             Assert.Collection(Fixture.Context.ReportTemplates
                 .Include(rt => rt.Tags)
                 .ThenInclude(rtrtt => rtrtt.ReportTemplateTag)
+                .OrderBy(rt1 => rt1.Id)
                 .First()
                 .Tags,
                 new Action<ReportTemplateReportTemplateTag>(tag => Assert.Equal("Tag", tag.ReportTemplateTag.Name)));
