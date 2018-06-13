@@ -40,13 +40,13 @@
 						},
 						{
 							"key": "username",
-							"value": "admin@admin.com",
+							"value": "api@demo.com",
 							"type": "text",
 							"description": ""
 						},
 						{
 							"key": "password",
-							"value": "Nothing123$",
+							"value": "Passw0rd$",
 							"type": "text",
 							"description": ""
 						}
@@ -100,7 +100,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n        \"name\": \"Test Execution Result By Test Scenario\",\n        \"description\": \"The test execution result by test scenario\",\n        \"tags\": null,\n        \"creationDate\": \"2018-05-15T00:00:00\",\n        \"lastModifiedDate\": \"2018-05-15T00:00:00\",\n        \"thumbnailImage\": \"/Sample-data/TestExecutionResultByTestScenario/thumbnail.png\",\n        \"fullSizeImage\": \"/Sample-data/TestExecutionResultByTestScenario/image.png\",\n        \"pdfFile\": \"/Sample-data/TestExecutionResultByTestScenario/TestExecutionResultByTestScenario.pdf\",\n        \"zipFile\": \"/Sample-data/TestExecutionResultByTestScenario/TestExecutionResultByTestScenario.zip\"\n    }"
+					"raw": "{\n        \"name\": \"Test Execution Result By Test Scenario\",\n        \"description\": \"The test execution result by test scenario\",\n        \"tags\": [\"NewTag\"],\n        \"creationDate\": \"2018-05-15T00:00:00\",\n        \"lastModifiedDate\": \"2018-05-15T00:00:00\",\n        \"thumbnailImage\": \"/Sample-data/TestExecutionResultByTestScenario/thumbnail.png\",\n        \"fullSizeImage\": \"/Sample-data/TestExecutionResultByTestScenario/image.png\",\n        \"pdfFile\": \"/Sample-data/TestExecutionResultByTestScenario/TestExecutionResultByTestScenario.pdf\",\n        \"zipFile\": \"/Sample-data/TestExecutionResultByTestScenario/TestExecutionResultByTestScenario.zip\"\n    }"
 				},
 				"url": {
 					"raw": "{{server}}/api/reporttemplates",
@@ -147,14 +147,14 @@
 				],
 				"body": {},
 				"url": {
-					"raw": "{{server}}/api/reporttemplates/4",
+					"raw": "{{server}}/api/reporttemplates/3",
 					"host": [
 						"{{server}}"
 					],
 					"path": [
 						"api",
 						"reporttemplates",
-						"4"
+						"3"
 					]
 				}
 			},
@@ -176,7 +176,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Test Execution Result By Test Scenario 2\",\n    \"description\": \"The test execution result by test scenario\",\n    \"tags\": null,\n    \"creationDate\": \"2018-05-15T00:00:00\",\n    \"lastModifiedDate\": \"2018-05-15T00:00:00\",\n    \"thumbnailImage\": \"/Sample-data/TestExecutionResultByTestScenario/thumbnail.png\",\n    \"fullSizeImage\": \"/Sample-data/TestExecutionResultByTestScenario/image.png\",\n    \"pdfFile\": \"/Sample-data/TestExecutionResultByTestScenario/TestExecutionResultByTestScenario.pdf\",\n    \"zipFile\": \"/Sample-data/TestExecutionResultByTestScenario/TestExecutionResultByTestScenario.zip\",\n    \"id\": 2\n}"
+					"raw": "{\n    \"name\": \"Test Execution Result By Test Scenario 1\",\n    \"description\": \"The test execution result by test scenario\",\n    \"tags\": [\"Status\"],\n    \"creationDate\": \"2018-05-15T00:00:00\",\n    \"lastModifiedDate\": \"2018-05-15T00:00:00\",\n    \"thumbnailImage\": \"/Sample-data/TestExecutionResultByTestScenario/thumbnail.png\",\n    \"fullSizeImage\": \"/Sample-data/TestExecutionResultByTestScenario/image.png\",\n    \"pdfFile\": \"/Sample-data/TestExecutionResultByTestScenario/TestExecutionResultByTestScenario.pdf\",\n    \"zipFile\": \"/Sample-data/TestExecutionResultByTestScenario/TestExecutionResultByTestScenario.zip\",\n    \"id\": 2\n}"
 				},
 				"url": {
 					"raw": "{{server}}/api/reporttemplates/2",
@@ -193,7 +193,7 @@
 			"response": []
 		},
 		{
-			"name": "Tset JWT",
+			"name": "Test JWT",
 			"request": {
 				"method": "GET",
 				"header": [

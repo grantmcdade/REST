@@ -4,6 +4,7 @@
 
 This is a sample REST API implemented with C# and ASP.NET Core WebAPI.
 
+A sample of the API is hosted at [https://rest-demo.azurewebsites.net/swagger/index.html](https://rest-demo.azurewebsites.net/swagger/index.html) 
 It makes use of the following NuGet libraries.
 
 + [AutoMapper](https://automapper.org/) - for mapping the report temlates from the database objects
